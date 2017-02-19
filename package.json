@@ -1,0 +1,35 @@
+{
+  "name": "herodotus-transport",
+  "version": "0.0.0",
+  "description": "default transport for herodotus logger",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint && npm run cover && npm run check-coverage",
+    "lint": "./node_modules/./.bin/eslint index.js lib/ test/",
+    "cover": "./node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive test",
+    "check-coverage": "./node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100",
+    "view-coverage": "open ./coverage/lcov-report/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/53seven/herodotus-transport.git"
+  },
+  "author": "kiernan <kiernan@537.io> (http://537.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/53seven/herodotus-transport/issues"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.15.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7"
+  },
+  "homepage": "https://github.com/53seven/herodotus-transport#readme",
+  "dependencies": {
+    "async": "^2.1.4",
+    "lodash": "^4.17.4",
+    "request": "^2.79.0"
+  }
+}
