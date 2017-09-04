@@ -20,7 +20,7 @@ describe('herodotus-transport', () => {
   beforeEach(() => {
     // stub request.post
     endpoint = 'http://herodotus.io/log';
-    herodotus_err;
+    herodotus_err = null;
     herodotus_response = {statusCode: 200};
     call_count = 1;
     sample_log = {foo: 'bar'};
@@ -87,6 +87,26 @@ describe('herodotus-transport', () => {
     const stream = transport({api_token, emit_error: true});
     stream.on('error', (err) => {
       expect(err).to.be.equal(herodotus_err);
+      done();
+    });
+    stream.write(sample_log);
+  });
+
+  it('should emit warn when statusCode is not 200', (done) => {
+    herodotus_response = {statusCode: 404};
+    const stream = transport({api_token, emit_error: false});
+    stream.on('warn', (err) => {
+      expect(err).to.deep.equal({status_code: 404});
+      done();
+    });
+    stream.write(sample_log);
+  });
+
+  it('should error when asked asnd statusCode is not 200', (done) => {
+    herodotus_response = {statusCode: 404};
+    const stream = transport({api_token, emit_error: true});
+    stream.on('error', (err) => {
+      expect(err).to.deep.equal({status_code: 404});
       done();
     });
     stream.write(sample_log);
